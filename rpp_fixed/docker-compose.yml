@@ -1,0 +1,69 @@
+version: '3.8'
+
+services:
+  # MySQL Database
+  mysql:
+    image: mysql:8.0
+    container_name: research-mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: research_papers
+    ports:
+      - "3307:3306"  # Changed to 3307 to avoid conflict with local MySQL
+    volumes:
+      - mysql-data:/var/lib/mysql
+    networks:
+      - research-network
+
+  # MongoDB Database
+  mongodb:
+    image: mongo:7.0
+    container_name: research-mongodb
+    restart: always
+    environment:
+      MONGO_INITDB_DATABASE: research_ai
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongodb-data:/data/db
+    networks:
+      - research-network
+
+  # Redis Cache
+  redis:
+    image: redis:7-alpine
+    container_name: research-redis
+    restart: always
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis-data:/data
+    networks:
+      - research-network
+
+  # Elasticsearch
+  elasticsearch:
+    image: elasticsearch:8.11.0
+    container_name: research-elasticsearch
+    restart: always
+    environment:
+      - discovery.type=single-node
+      - xpack.security.enabled=false
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+    ports:
+      - "19200:9200"  # Using high port to avoid Windows Hyper-V reservations
+    volumes:
+      - elasticsearch-data:/usr/share/elasticsearch/data
+    networks:
+      - research-network
+
+volumes:
+  mysql-data:
+  mongodb-data:
+  redis-data:
+  elasticsearch-data:
+
+networks:
+  research-network:
+    driver: bridge

@@ -1,0 +1,24 @@
+{
+  "name": "research-paper-platform",
+  "version": "1.0.0",
+  "description": "AI Research Paper Intelligence Platform",
+  "scripts": {
+    "start": "node src/index.js",
+    "install:all": "cd backend && npm install && cd ../frontend && npm install",
+    "dev:backend": "cd backend && npm run dev",
+    "dev:frontend": "cd frontend && npm run dev",
+    "build:frontend": "cd frontend && npm run build",
+    "dev": "concurrently \"npm run dev:backend\" \"npm run dev:frontend\""
+  },
+  "keywords": [
+    "research",
+    "ai",
+    "papers",
+    "multi-database"
+  ],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "concurrently": "^9.2.1"
+  }
+}
