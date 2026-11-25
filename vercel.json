@@ -1,0 +1,12 @@
+{
+  "framework": null,
+  "installCommand": "npm ci --prefix rpp_fixed/frontend",
+  "buildCommand": "npm run build --prefix rpp_fixed/frontend",
+  "outputDirectory": "rpp_fixed/frontend/dist",
+  "rewrites": [
+    {
+      "source": "/((?!api(?:/|$)).*)",
+      "destination": "/index.html"
+    }
+  ]
+}
