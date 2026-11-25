@@ -30,7 +30,7 @@ export const paperService = {
 
   downloadPaper: (id) => {
     // Trigger download by opening the download URL
-    window.open(`${import.meta.env.VITE_API_URL || 'http://localhost:5000/api'}/papers/download/${id}`, '_blank');
+    window.open(`${api.defaults.baseURL}/papers/download/${id}`, '_blank');
   },
 
   createPaper: async (paperData) => {
